@@ -1,0 +1,72 @@
+Windows Registry Editor Version 5.00
+
+; ============================================================
+; _RESTORE: вернуть базовые настройки Windows 11 к значениям по умолчанию.
+; Применяется ДВОЙНЫМ КЛИКОМ, затем перезагрузка.
+; ============================================================
+
+[HKEY_CURRENT_USER\Control Panel\Desktop]
+"AutoEndTasks"=-
+"HungAppTimeout"=-
+"WaitToKillAppTimeout"=-
+"MenuShowDelay"=-
+"ForegroundLockTimeout"=-
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management]
+"DisablePagingExecutive"=-
+"LargeSystemCache"=-
+"FeatureSettingsOverride"=-
+"FeatureSettingsOverrideMask"=-
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\PriorityControl]
+"Win32PrioritySeparation"=-
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile]
+"NetworkThrottlingIndex"=-
+"SystemResponsiveness"=-
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games]
+"GPU Priority"=-
+"Priority"=-
+"Scheduling Category"=-
+"SFIO Priority"=-
+"Background Only"=-
+"Thread Priority"=-
+
+[HKEY_CURRENT_USER\System\GameConfigStore]
+"GameDVR_Enabled"=dword:00000001
+"GameDVR_FSEBehaviorMode"=-
+"GameDVR_FSEBehavior"=-
+"GameDVR_HonorUserFSEBehaviorMode"=-
+"GameDVR_DXGIHonorFSEWindowsCompatible"=-
+"GameDVR_EFSEFeatureFlags"=-
+"GameDVR_DSEBehavior"=-
+
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\GameBar]
+"ShowStartupPanel"=-
+"AllowAutoGameMode"=-
+"AutoGameModeEnabled"=-
+"UseNexusForGameBarEnabled"=-
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\GameDVR]
+"AllowGameDVR"=-
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power]
+"EventProcessorEnabled"=-
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling]
+"PowerThrottlingOff"=-
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power\EnergyEfficiencyMode]
+"IsEnabled"=-
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\kernel]
+"DistributeTimers"=-
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications]
+"GlobalUserDisabled"=-
+
+[HKEY_CURRENT_USER\Control Panel\Mouse]
+"MouseSpeed"=-
+"MouseThreshold1"=-
+"MouseThreshold2"=-

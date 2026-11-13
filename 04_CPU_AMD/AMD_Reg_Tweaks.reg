@@ -1,0 +1,28 @@
+Windows Registry Editor Version 5.00
+
+; ============================================================
+; 04_CPU_AMD: твики под AMD Ryzen (Win11)
+; Дополнительно к 00_COMMON_BASE. Откат: _RESTORE\Restore_CPU.reg
+; КЛЮЧЕВОЕ для Ryzen: отключить Core Parking и "Preferred Core" дрожание,
+; не трогать CPPC в BIOS (оставить Enabled — Windows 11 планировщик
+; корректно работает с Zen3+/Zen4+).
+; ============================================================
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling]
+"PowerThrottlingOff"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power]
+"CoalescingTimerInterval"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power\EnergyEfficiencyMode]
+"IsEnabled"=dword:00000000
+
+; --- [РИСК] Mitigations off на Ryzen: +до 5% FPS на Zen2/Zen3, менее
+;     заметно на Zen4/5. СНИЖАЕТ БЕЗОПАСНОСТЬ. По умолчанию закомментировано.
+;[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management]
+;"FeatureSettingsOverride"=dword:00000003
+;"FeatureSettingsOverrideMask"=dword:00000003
+
+; --- amdppmprocessorfeature / Preferred Centers: оставить дефолт.
+;     На Ryzen НЕ рекомендуется отключать CPPC через реестр — это хуже для
+;     однопоточного буста (CS2 чувствителен к ST-производительности).

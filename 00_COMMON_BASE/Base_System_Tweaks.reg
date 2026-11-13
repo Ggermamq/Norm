@@ -1,0 +1,111 @@
+Windows Registry Editor Version 5.00
+
+; ============================================================
+; 00_COMMON_BASE: базовые твики Windows 11 для FPS/latency
+; Безопасный набор. Откат: _RESTORE\Restore_Common.reg
+; ============================================================
+
+[HKEY_CURRENT_USER\Control Panel\Desktop]
+; Быстрее закрывать зависшие приложения (меньше фризов при сворте)
+"AutoEndTasks"="1"
+"HungAppTimeout"="2000"
+"WaitToKillAppTimeout"="4000"
+"MenuShowDelay"="0"
+"ForegroundLockTimeout"="0"
+
+[HKEY_CURRENT_USER\Control Panel\Mouse]
+; Точность мыши OFF + отключить акселерацию на уровне ОС
+"MouseSensitivity"="6"
+"MouseSpeed"="0"
+"MouseThreshold1"="0"
+"MouseThreshold2"="0"
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management]
+; Драйверы и ядро всегда в RAM (не сбрасываются на диск) — было в старом
+; наборе, значение исправлено с hex-мусора на нормальное dword
+"DisablePagingExecutive"=dword:00000001
+; LargeSystemCache=0 обязателен для игровых машин (серверный кэш вредит)
+"LargeSystemCache"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\PriorityControl]
+; Short quantums + переменный квант = лучший отзывчивость/CPU latency.
+; 36 (0x24) — рекомендуемое значение; альтернативы в 03_CPU_* / TEST.
+"Win32PrioritySeparation"=dword:00000024
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\GameDVR]
+"AppCaptureEnabled"=dword:00000000
+
+[HKEY_CURRENT_USER\System\GameConfigStore]
+"GameDVR_Enabled"=dword:00000000
+"GameDVR_FSEBehaviorMode"=dword:00000002
+"GameDVR_FSEBehavior"=dword:00000002
+"GameDVR_HonorUserFSEBehaviorMode"=dword:00000001
+"GameDVR_DXGIHonorFSEWindowsCompatible"=dword:00000001
+"GameDVR_EFSEFeatureFlags"=dword:00000000
+"GameDVR_DSEBehavior"=dword:00000002
+
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\GameBar]
+; Выключить Game Bar / Auto Game Mode (оверлей добавляет задержку)
+"ShowStartupPanel"=dword:00000000
+"AllowAutoGameMode"=dword:00000000
+"AutoGameModeEnabled"=dword:00000000
+"UseNexusForGameBarEnabled"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\GameDVR]
+"AllowGameDVR"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\ApplicationManagement\AllowGameDVR]
+"value"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Runtime\Contact\DataAccess]
+"SystemState"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power]
+; Event Processor (сбор телеметрии питания) — отключён
+"EventProcessorEnabled"=dword:00000000
+; Убрать ограничение "выборки" таймера мультимедиа (1 ms precision)
+"TimerResolutionPersistenceMask"=dword:00000009
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\kernel]
+; Не распределять таймеры принудительно (было в старом наборе; 0 = дефолт,
+; оставляем как в оригинальном твике — эффект минимальный, безопасно)
+"DistributeTimers"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile]
+; NetworkThrottlingIndex=ffffffff — классика: снимает троттлинг мультимедиа
+; трафика. Влияние на CS2 спорно, но безвредно.
+"NetworkThrottlingIndex"=dword:ffffffff
+; SystemResponsiveness=0 — резерв ресурсов под игру вместо фоновых задач
+"SystemResponsiveness"=dword:00000000
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games]
+; Приоритет игр: High по умолчанию достаточно (Realtime может дестабилизировать)
+"GPU Priority"=dword:00000008
+"Priority"=dword:00000006
+"Scheduling Category"="High"
+"SFIO Priority"="High"
+"Background Only"="False"
+"Thread Priority"="games\High"
+
+[HKEY_CURRENT_USER\Control Panel\Accessibility]
+; Sticky/Toggle keys off — меньше низкоуровневых хуков клавиатуры
+"StickyKeys"="506"
+
+[HKEY_CURRENT_USER\Control Panel\Accessibility\ToggleKeys]
+"Flags"="58"
+
+[HKEY_CURRENT_USER\Control Panel\Accessibility\Keyboard Response]
+"Flags"="122"
+"DelayBeforeAcceptance"="0"
+"AutoRepeatRate"="0"
+"AutoRepeatDelay"="0"
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications]
+; Фоновые UWP-приложения — выключить всем (экономит CPU-прерывания)
+"GlobalUserDisabled"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"Start_TrackProgs"=dword:00000000
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"Start_TrackDocs"=dword:00000000

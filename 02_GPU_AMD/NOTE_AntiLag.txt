@@ -1,0 +1,31 @@
+AMD RADEON — НАСТРОЙКИ Adrenalin ДЛЯ CS2 (вручную, важнее реестра!)
+====================================================================
+
+Adrenalin -> Gaming -> Graphics -> Profile: CS2 (Global):
+  - Radeon Anti-Lag:          ON  (или Anti-Lag 2, если игра поддерживает)
+  - Radeon Boost:             OFF в CS2 (меняет разрешение динамически — мыло)
+  - Image Sharpening:         по вкусу (10-20%), без влияния на latency
+  - Wait for Vertical Refresh: OFF, unless application supports
+  - Texture Filtering Quality: Performance
+  - Surface Format Optimization: ON (для DX11), для Vulkan/DX9 OFF
+  - Triple Buffering:         OFF
+  - Tessellation Mode:        Override -> x16 (или AMD Optimized)
+  - GPU Power Limit:          +10% (стабилизирует clock, меньше просадок 1% low)
+  - Chill:                    OFF
+
+Adrenalin -> Settings -> System:
+  - Enhanced Sync:            ON как альтернатива V-Sync OFF при разрывах
+    (не добавляет задержку, в отличие от классического V-Sync)
+  - Radeon Anti-Lag 2:       ON глобально, если драйвер >= 23.x и игра поддерживает
+  - Telemetry / Crash Defender: отключить сбор данных
+
+BIOS платформы AMD:
+  - EXPO/XMP ON
+  - Global C-states: можно оставить AUTO на Zen3+; на Zen2 при проблемах с
+    микрофризами — OFF (твики в 04_CPU_AMD тоже помогают)
+  - fCLK/UCLK: 1:1 (Infinity Fabric синхронно с памятью) — критично для FPS!
+    Например DDR4-3600 => FCLK 1800. Несинхронный IF = -5..10% FPS.
+
+CS2 специфика на AMD: Reflex нет — используйте Anti-Lag + высокий FPS.
+Если монитор 240/360 Гц: включите в Windows "Переменная частота обновления"
+только для игр (LFC/G-Sync compatible модуль FreeSync).

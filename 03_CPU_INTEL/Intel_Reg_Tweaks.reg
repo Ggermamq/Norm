@@ -1,0 +1,36 @@
+Windows Registry Editor Version 5.00
+
+; ============================================================
+; 03_CPU_INTEL: твики под Intel (Core i5/i7/i9, Win11)
+; Дополнительно к 00_COMMON_BASE. Откат: _RESTORE\Restore_CPU.reg
+; ============================================================
+
+; --- Power Throttling OFF (Intel активно троттлит "фоновые" процессы —
+;     оверлеи/античиты/Steam могут тормозить игру косвенно)
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling]
+"PowerThrottlingOff"=dword:00000001
+
+; --- Core Parking OFF полностью (скрипт Set_Performance_CoreParking.bat делает
+;     это для активного плана питания; здесь — реестровый fallback)
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power]
+"CoalescingTimerInterval"=dword:00000000
+
+; --- Boost: максимальная агрессия Turbo
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Processor]
+; (управляется через powercfg -_processorpromotionthreshold etc. в bat-файле)
+
+; --- Отключить "Energy Saver Efficiency Mode" планировщика
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power\EnergyEfficiencyMode]
+"IsEnabled"=dword:00000000
+
+; --- [РИСК] Отключение mitigations спецификаций (Spectre/Meltdown).
+;     +2..6% FPS на старых CPU (8-10 gen), ~0 на 12+ gen из-за overhead
+;     на новых. СНИЖАЕТ БЕЗОПАСНОСТЬ. Применяйте только на игровом ПК без
+;     стороннего ПО/безопасных данных. Раскомментировать и применить.
+;[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management]
+;"FeatureSettingsOverride"=dword:00000003
+;"FeatureSettingsOverrideMask"=dword:00000003
+
+; --- Win32PrioritySeparation профиль Intel: 36 (короткие кванты).
+;     Альтернативы для тестов: TEST_Win32PriorityVariants.reg
+;     (значение уже стоит в 00_COMMON_BASE — здесь не дублируем)
